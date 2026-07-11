@@ -1,0 +1,728 @@
+/* ==========================================================================
+   Student Ledger — Design Tokens
+   Concept: a registrar's card-catalog. Records look like index cards
+   pulled from a drawer — punch hole, stitched edge, mono catalog tab.
+   ========================================================================== */
+
+:root {
+  /* Color */
+  --ink: #1b2740;
+  --ink-soft: #35405c;
+  --paper: #eef0ea;
+  --card: #fbfaf6;
+  --gold: #c89b3c;
+  --gold-deep: #a67e28;
+  --rust: #a64b3b;
+  --sage: #5c7a5e;
+  --line: #cfd0c4;
+
+  /* Type */
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", "Courier New", monospace;
+
+  /* Scale */
+  --space-1: 0.4rem;
+  --space-2: 0.8rem;
+  --space-3: 1.4rem;
+  --space-4: 2.2rem;
+  --space-5: 3.6rem;
+
+  --radius: 3px;
+  --shadow-card: 0 1px 0 var(--line), 0 8px 20px -12px rgba(27, 39, 64, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background-color: var(--paper);
+  background-image: radial-gradient(circle at 1px 1px, rgba(27, 39, 64, 0.05) 1px, transparent 0);
+  background-size: 22px 22px;
+  color: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold-deep);
+  outline-offset: 2px;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 var(--space-2);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+
+/* ==========================================================================
+   Header / Nav
+   ========================================================================== */
+
+.site-header {
+  background: var(--ink);
+  color: var(--card);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 3px solid var(--gold);
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--space-2);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+  color: var(--card);
+}
+
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brand-text strong {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+}
+
+.brand-text span {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.nav-toggle {
+  background: none;
+  border: 1px solid rgba(251, 250, 246, 0.4);
+  border-radius: var(--radius);
+  width: 42px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.nav-toggle span,
+.nav-toggle span::before,
+.nav-toggle span::after {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--card);
+  position: relative;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-toggle span::before {
+  position: absolute;
+  top: -6px;
+}
+
+.nav-toggle span::after {
+  position: absolute;
+  top: 6px;
+}
+
+.nav-toggle[aria-expanded="true"] span {
+  background: transparent;
+}
+
+.nav-toggle[aria-expanded="true"] span::before {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] span::after {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.nav-links {
+  list-style: none;
+  display: none;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: var(--space-2) 0 var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+}
+
+.nav-links.is-open {
+  display: flex;
+}
+
+.nav-links a {
+  display: block;
+  text-decoration: none;
+  padding: var(--space-2) var(--space-1);
+  border-bottom: 1px dashed rgba(251, 250, 246, 0.25);
+  color: var(--card);
+}
+
+.nav-links a[aria-current="page"] {
+  color: var(--gold);
+}
+
+@media (min-width: 768px) {
+  .nav-toggle {
+    display: none;
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    gap: var(--space-4);
+  }
+
+  .nav-links a {
+    border-bottom: none;
+    padding: var(--space-1) 0;
+    position: relative;
+  }
+
+  .nav-links a[aria-current="page"]::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 2px;
+    background: var(--gold);
+  }
+}
+
+/* ==========================================================================
+   Page hero
+   ========================================================================== */
+
+.page-hero {
+  padding-block: var(--space-4) var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.page-hero h1 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+.page-hero p {
+  max-width: 56ch;
+  color: var(--ink-soft);
+}
+
+/* ==========================================================================
+   Dashboard stat cards
+   ========================================================================== */
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  padding-block: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .stat-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--gold);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-card);
+}
+
+.stat-card .eyebrow {
+  display: block;
+  margin-bottom: var(--space-1);
+}
+
+.stat-card .stat-number {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  display: block;
+}
+
+.stat-card .stat-delta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--sage);
+}
+
+.stat-card .stat-delta.down {
+  color: var(--rust);
+}
+
+/* ==========================================================================
+   Index card (signature element) — used for a student record
+   ========================================================================== */
+
+.index-card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  box-shadow: var(--shadow-card);
+}
+
+.index-card::before {
+  content: "";
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-2);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 2px rgba(27, 39, 64, 0.25);
+}
+
+.index-card::after {
+  content: "";
+  position: absolute;
+  top: var(--space-2);
+  bottom: var(--space-2);
+  left: 26px;
+  border-left: 1px dashed var(--line);
+}
+
+.index-card .tab {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--gold-deep);
+  display: inline-block;
+  margin-bottom: var(--space-1);
+}
+
+.index-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
+}
+
+.index-card .role {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  margin-bottom: var(--space-2);
+}
+
+.index-card dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.3rem var(--space-2);
+  font-size: 0.88rem;
+  margin: 0 0 var(--space-2);
+}
+
+.index-card dt {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  align-self: center;
+}
+
+.index-card dd {
+  margin: 0;
+}
+
+.index-card .card-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: var(--radius);
+  padding: 0.55rem 1.1rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--card);
+}
+
+.btn-primary:hover {
+  background: var(--ink-soft);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.btn-ghost:hover {
+  border-color: var(--ink);
+}
+
+.btn-danger {
+  background: transparent;
+  border-color: var(--rust);
+  color: var(--rust);
+}
+
+.btn-danger:hover {
+  background: var(--rust);
+  color: var(--card);
+}
+
+.btn-block {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   Students list / toolbar
+   ========================================================================== */
+
+.list-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-block: var(--space-3);
+}
+
+.list-toolbar input[type="search"] {
+  font-family: var(--font-body);
+  padding: 0.6rem var(--space-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .list-toolbar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .list-toolbar input[type="search"] {
+    max-width: 320px;
+  }
+}
+
+.student-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  padding-bottom: var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .student-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .student-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--space-5) var(--space-3);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   Form (add / edit student)
+   ========================================================================== */
+
+.ledger-form {
+  max-width: 640px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--gold);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  margin-bottom: var(--space-5);
+  box-shadow: var(--shadow-card);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+@media (min-width: 600px) {
+  .form-row.two-up {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.field label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.field input,
+.field select {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 0.6rem var(--space-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.field input:focus,
+.field select:focus {
+  background: var(--card);
+}
+
+.field .error-message {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--rust);
+  min-height: 1em;
+}
+
+.field.has-error input,
+.field.has-error select {
+  border-color: var(--rust);
+}
+
+.form-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-3);
+}
+
+.form-status {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  padding: var(--space-2);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-3);
+  display: none;
+}
+
+.form-status.show {
+  display: block;
+}
+
+.form-status.success {
+  background: rgba(92, 122, 94, 0.12);
+  color: var(--sage);
+  border: 1px solid var(--sage);
+}
+
+.form-status.error {
+  background: rgba(166, 75, 59, 0.1);
+  color: var(--rust);
+  border: 1px solid var(--rust);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.site-footer {
+  background: var(--ink);
+  color: rgba(251, 250, 246, 0.75);
+  margin-top: var(--space-5);
+}
+
+.footer-inner {
+  padding-block: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .footer-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: #f5f5f5;
+}
+
+.container {
+  width: 90%;
+  margin: auto;
+}
+
+.site-header {
+  background: #111;
+  color: white;
+  padding: 10px 0;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.page-hero {
+  background: #222;
+  color: white;
+  padding: 40px 0;
+}
+
+.student-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.btn {
+  padding: 8px 12px;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: blue;
+  color: white;
+}
+
+.btn-danger {
+  background: red;
+  color: white;
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}

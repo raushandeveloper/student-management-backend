@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Ledger — Add Student</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-bar">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">SL</span>
+        <span class="brand-text">
+          <strong>Student Ledger</strong>
+          <span>Registrar Console</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation menu">
+        <span></span>
+      </button>
+
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="students.html">Students</a></li>
+          <li><a href="add-student.html" aria-current="page">Add Student</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">New index card</span>
+        <h1 id="formTitle">File a new student.</h1>
+        <p>Fill in every field below — the drawer doesn't accept a half-written card. This form only validates locally for now; saving to a real database is Project 3.</p>
+      </div>
+    </section>
+
+    <section class="container">
+      <form class="ledger-form" id="studentForm" novalidate>
+
+        <div class="form-status" id="formStatus" role="status"></div>
+
+        <div class="form-row two-up">
+          <div class="field" id="field-name">
+            <label for="fullName">Full name</label>
+            <input type="text" id="fullName" name="fullName" placeholder="e.g. Aditi Sharma" autocomplete="name" />
+            <span class="error-message"></span>
+          </div>
+
+          <div class="field" id="field-roll">
+            <label for="rollNo">Roll number</label>
+            <input type="text" id="rollNo" name="rollNo" placeholder="e.g. STU-014" autocomplete="off" />
+            <span class="error-message"></span>
+          </div>
+        </div>
+
+        <div class="form-row two-up">
+          <div class="field" id="field-email">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" placeholder="e.g. aditi@school.edu" autocomplete="email" />
+            <span class="error-message"></span>
+          </div>
+
+          <div class="field" id="field-phone">
+            <label for="phone">Phone number</label>
+            <input type="tel" id="phone" name="phone" placeholder="e.g. 98765 43210" autocomplete="tel" />
+            <span class="error-message"></span>
+          </div>
+        </div>
+
+        <div class="form-row two-up">
+          <div class="field" id="field-age">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" min="3" max="100" placeholder="e.g. 16" />
+            <span class="error-message"></span>
+          </div>
+
+          <div class="field" id="field-course">
+            <label for="course">Course</label>
+            <select id="course" name="course">
+              <option value="">Select a course…</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Commerce">Commerce</option>
+              <option value="Humanities">Humanities</option>
+              <option value="Science">Science</option>
+            </select>
+            <span class="error-message"></span>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Save student</button>
+          <button type="reset" class="btn btn-ghost" id="resetBtn">Clear form</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>© 2026 Student Ledger. Built for the front office.</span>
+      <span>Project 1 of 3 — Frontend Interface</span>
+    </div>
+  </footer>
+
+ <script src="js/add-student.js"></script>
+</body>
+</html>

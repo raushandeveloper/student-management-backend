@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Ledger — Students</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav-bar">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">SL</span>
+      <span class="brand-text">
+        <strong>Student Ledger</strong>
+        <span>Registrar Console</span>
+      </span>
+    </a>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Dashboard</a></li>
+        <li><a href="students.html" aria-current="page">Students</a></li>
+        <li><a href="add-student.html">Add Student</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Drawer 01 — All students</span>
+      <h1>The student drawer.</h1>
+      <p>Search, filter, and manage student records.</p>
+    </div>
+  </section>
+
+  <section class="container">
+
+    <!-- ✅ TOOLBAR -->
+    <div class="list-toolbar">
+      <input 
+        type="search" 
+        id="searchInput" 
+        placeholder="Search by name, roll no., or course…" 
+      />
+      <a class="btn btn-primary" href="add-student.html">+ Add Student</a>
+    </div>
+
+    <!-- ✅ STUDENT GRID -->
+    <div class="student-grid" id="studentGrid">
+      <!-- Cards will come from JS -->
+    </div>
+
+    <!-- ✅ EMPTY STATE -->
+    <p id="emptyState" style="text-align:center; margin-top:20px; display:none;">
+      No students found 😕
+    </p>
+
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>© 2026 Student Ledger</span>
+  </div>
+</footer>
+
+<!-- ✅ JS -->
+<script src="js/students.js"></script>
+
+</body>
+</html>
